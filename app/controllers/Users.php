@@ -48,11 +48,13 @@ class Users extends Controller
             } else if ($data['password'] !== $data['confirm_password']) {
                 $data['confirm_password_err'] = 'Passwords do not match';
             }
+            //parool tyhi ja parool error on tyhi, siis krypteerime parooli.
             if (empty($data['name_err']) and empty($data['email_err']) and empty($data['password_err']) and empty($data['confirm_password_err'])) {
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
                 if ($this->usersModel->register($data)) {
-                    message('register_success', 'You are registred and now can log in');
-                    redirect('users/login');
+                    // lisatud register teade
+                    message('register_success', 'You are registred and now can log in', 'alert alert-danger');
+                    header ('Location'.URLROOT.'/'.'users/login');
                 } else {
                     die('Something went wrong');
                 }
@@ -93,6 +95,7 @@ class Users extends Controller
             if (empty($data['password'])) {
                 $data['password_err'] = 'Please enter the password';
             }
+
 
             if (empty($data['email_err']) and empty($data['password_err'])) {
                 $loggedInUser = $this->usersModel->login($data['email'], $data['password']);
