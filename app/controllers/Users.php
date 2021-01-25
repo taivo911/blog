@@ -53,7 +53,7 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
                 if ($this->usersModel->register($data)) {
                     // lisatud register teade
-                    message('register_success', 'You are registred and now can log in', 'alert alert-danger');
+                    message('register_success', 'You are registred and now can log in');
                     header ('Location'.URLROOT.'/'.'users/login');
                 } else {
                     die('Something went wrong');
@@ -85,6 +85,7 @@ class Users extends Controller
                 'email_err' => '',
                 'password_err' => ''
             );
+            // sisselogimise kontroll tingimuslausega
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter the email';
             } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
@@ -96,12 +97,12 @@ class Users extends Controller
                 $data['password_err'] = 'Please enter the password';
             }
 
-
+            // parooli kontroll
             if (empty($data['email_err']) and empty($data['password_err'])) {
                 $loggedInUser = $this->usersModel->login($data['email'], $data['password']);
                 if ($loggedInUser) {
                     $this->createUserSession($loggedInUser);
-                    redirect('pages/index');
+                    header('Location:'.URLROOT.'/'.'pages/index');
                 } else {
                     $data['password_err'] = 'Password is incorrect';
                     $this->view('users/login', $data);

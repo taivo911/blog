@@ -5,6 +5,7 @@
             <div class="card card-outline-secondary mt-5">
                 <div class="card-header">
                     <?php message('register_success'); ?>
+                    // teeme sisselogimise lihtsamaks
                     <h3 class="mb-0">Log In</h3>
                     <p class="mt-2">Please fill the fields to log in</p>
                 </div>

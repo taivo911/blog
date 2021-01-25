@@ -41,11 +41,13 @@ class User
             return false;
         }
     }
-
+        // sisselogimise funktsioon, leida andmebaasist sellise emailiga kasutaja
     public function login($email, $password)
     {
         $this->db->query('SELECT * FROM users WHERE email=:email');
+        // emaili v22rtus paika
         $this->db->bind(':email', $email);
+        // andmebaasist kasutaja
         $user = $this->db->getOne();
         $hashedPassword = $user->password;
         if (password_verify($password, $hashedPassword)) {
