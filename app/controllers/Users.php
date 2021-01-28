@@ -54,7 +54,7 @@ class Users extends Controller
                 if ($this->usersModel->register($data)) {
                     // lisatud register teade
                     message('register_success', 'You are registred and now can log in');
-                    header ('Location'.URLROOT.'/'.'users/login');
+                    redirect('users/login');
                 } else {
                     die('Something went wrong');
                 }
@@ -102,7 +102,7 @@ class Users extends Controller
                 $loggedInUser = $this->usersModel->login($data['email'], $data['password']);
                 if ($loggedInUser) {
                     $this->createUserSession($loggedInUser);
-                    header('Location:'.URLROOT.'/'.'pages/index');
+                    redirect('pages/index');
                 } else {
                     $data['password_err'] = 'Password is incorrect';
                     $this->view('users/login', $data);
