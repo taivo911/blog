@@ -13,7 +13,6 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                // lisatud tingimuslause, else ja endifs
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
                         <a href="<?php echo URLROOT; ?>/users/logout" class="nav-link">Logout</a>
